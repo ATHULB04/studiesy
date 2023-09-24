@@ -36,7 +36,8 @@ def to_summ(value,subject,date,time):
         list=db.collection("Notes").document(subject).collection(date).document(time).get()
         data=list.to_dict()
         if 'summary' in data:
-            print(result1=data["summary"])
+            result1=data["summary"]
+            print(resut1)
             
         else:
             def prompt():
@@ -54,7 +55,7 @@ def to_summ(value,subject,date,time):
                 return chain.run(inputs)
             data1=question1(data['transcribe'])
             db.collection("Notes").document(subject).collection(date).document(time).update({"summary":data1})
-            result="done"
+            result1="done"
             print(result1)
-        return result1
+    return result1
 
