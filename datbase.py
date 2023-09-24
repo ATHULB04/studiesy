@@ -55,5 +55,5 @@ def to_summ(value,subject,date,time):
             data1=question1(data['transcribe'])
             db.collection("Notes").document(subject).collection(date).document(time).update({"summary":data1})
             result="done"
-    return result
+        return result
 
