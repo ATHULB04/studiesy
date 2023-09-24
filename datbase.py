@@ -31,6 +31,7 @@ def importing(subject,date,period):
 
 # to generate summary
 def to_summ(value,subject,date,time):
+    reult=""
     while (value==True):
         list=db.collection("Notes").document(subject).collection(date).document(time).get()
         data=list.to_dict()
