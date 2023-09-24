@@ -14,7 +14,7 @@ def index():
     return({"result":r})
 
 @app.route("/summary",methods=['POST'])
-def index():
+def index1():
     yes=request.json['yes']
     subject=request.json['subject']
     date=request.json['date']
