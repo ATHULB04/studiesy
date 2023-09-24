@@ -35,6 +35,7 @@ def to_summ(value,subject,date,time):
     while (value=="True"):
         list=db.collection("Notes").document(subject).collection(date).document(time).get()
         data=list.to_dict()
+        result1=""
         if 'summary' in data:
             result1=data["summary"]
             print(resut1)
