@@ -58,6 +58,6 @@ def to_summ(value,subject,date,time):
             db.collection("Notes").document(subject).collection(date).document(time).update({"summary":data1})
             result1="done"
             print(result1)
-    value="False"
+        value="False"
     return result1
 
