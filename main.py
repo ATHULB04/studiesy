@@ -9,6 +9,7 @@ def index():
     date=request.json['date']
     period=request.json['period']
     r=studiesy.user(user_question,subject,date,period)
+    print(r)
     return({"result":r})
 
 if __name__=="__main__":
