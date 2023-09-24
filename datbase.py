@@ -38,7 +38,7 @@ def to_summ(value,subject,date,time):
         result1=""
         if 'summary' in data:
             result1=data["summary"]
-            print(resut1)
+            print(result1)
             
         else:
             def prompt():
