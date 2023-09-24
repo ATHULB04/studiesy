@@ -84,8 +84,7 @@ def user(user_question,subject,date,period):
 
     response = promptmaker(summary, user_question)
 
-    print(response)
+    return response
 
 
 
-print(user("tell me about todays class","Chemistry","23-09-2023","1"))
