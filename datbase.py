@@ -13,12 +13,13 @@ db=firestore.client()
 
 
 
-def importing(subject,date,period):
+def importing(subject):
     print(subject,date,period)
-    list=db.collection("Notes").document(subject).collection(date).document(period).get()
+    list=db.collection("Notes").document(subject).get()
     if list.exists:  
-        list=db.collection("Notes").document(subject).collection(date).document(period).get()
+        list=db.collection("Notes").document(subject)..get()
         data=list.to_dict()
+        print("done")
         return (data.get('summary', '').strip())
     else:
         return ("there was no period today")
@@ -30,10 +31,10 @@ def importing(subject,date,period):
 
 
 # to generate summary
-def to_summ(value,subject,date,time):
+def to_summ(value,subject):
     reuslt=""
     while (value=="True"):
-        list=db.collection("Notes").document(subject).collection(date).document(time).get()
+        list=db.collection("Notes").document(subject)..get()
         data=list.to_dict()
         result1=""
         if 'summary' in data:
@@ -55,7 +56,7 @@ def to_summ(value,subject,date,time):
                 chain = prompt()
                 return chain.run(inputs)
             data1=question1(data['transcribe'])
-            db.collection("Notes").document(subject).collection(date).document(time).update({"summary":data1})
+            db.collection("Notes").document(subject).update({"summary":data1})
             result1="done"
             print(result1)
         value="False"
