@@ -7,9 +7,9 @@ app=Flask(__name__)
 def index():
     user_question=request.json['question']
     subject=request.json['subject']
-    date=request.json['date']
-    period=request.json['period']
-    r=studiesy.user(user_question,subject,date,period)
+    # date=request.json['date']
+    # period=request.json['period']
+    r=studiesy.user(user_question,subject)
     print(r)
     return({"result":r})
 
@@ -17,9 +17,9 @@ def index():
 def index1():
     yes=request.json['yes']
     subject=request.json['subject']
-    date=request.json['date']
-    period=request.json['period']
-    r=datbase.to_summ(yes,subject,date,period)
+    # date=request.json['date']
+    # period=request.json['period']
+    r=datbase.to_summ(yes,subject)
     print(r)
     return({"result":r})
 
