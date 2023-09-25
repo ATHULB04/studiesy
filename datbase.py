@@ -17,7 +17,7 @@ def importing(subject):
     print(subject,date,period)
     list=db.collection("Notes").document(subject).get()
     if list.exists:  
-        list=db.collection("Notes").document(subject)..get()
+        list=db.collection("Notes").document(subject).get()
         data=list.to_dict()
         print("done")
         return (data.get('summary', '').strip())
