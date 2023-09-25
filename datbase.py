@@ -14,7 +14,7 @@ db=firestore.client()
 
 
 def importing(subject):
-    print(subject,date,period)
+    print(subject)
     list=db.collection("Notes").document(subject).get()
     if list.exists:  
         list=db.collection("Notes").document(subject).get()
