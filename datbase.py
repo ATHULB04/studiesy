@@ -34,7 +34,7 @@ def importing(subject):
 def to_summ(value,subject):
     reuslt=""
     while (value=="True"):
-        list=db.collection("Notes").document(subject)..get()
+        list=db.collection("Notes").document(subject).get()
         data=list.to_dict()
         result1=""
         if 'summary' in data:
