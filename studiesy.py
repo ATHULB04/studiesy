@@ -5,8 +5,8 @@ from langchain.chat_models import ChatOpenAI
 os.environ["OPENAI_API_KEY"] = os.environ.get('OPENAI_API_KEY')
 response_cache = {}
 
-def user(user_question,subject,date,period):
-    summary=datbase.importing(subject,date,period)
+def user(user_question,subject):
+    summary=datbase.importing(subject)
     print(summary)
     def scheckpromptmaker(question):#for double checking g=for summary
         instructions = """You are a chatbot that returns 0 or 1.1 means yes and 0 means no.
