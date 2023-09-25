@@ -57,7 +57,7 @@ def to_summ(value,subject):
                 return chain.run(inputs)
             data1=question1(data['transcribe'])
             db.collection("Notes").document(subject).update({"summary":data1})
-            result1="done"
+            result1=data1
             print(result1)
         value="False"
     return result1
