@@ -25,11 +25,11 @@ def importing(subject):
         return ("there was no period today")
 
 
-def chat(res,time):
-    data2={"message":res,"isSender":False,"messageStatus":"viewed","messageType":"text","time":time}
-    list=db.collection("chatroom").document("Alfred").collection("chats").document().get()
+def chat(res,time,subject):
+    data2={"message":res,"isSender":False,"time":time}
+    list=db.collection("chatroom").document(subject).collection("chats").document().get()
     if list.exists:  
-        db.collection("chatroom").document("Alfred").collection("chats").document().update(data2)
+        db.collection("chatroom").document(subject).collection("chats").document().update(data2)
     else:
         db.collection("chatroom").document("Alfred").collection("chats").document().set(data2)
 
