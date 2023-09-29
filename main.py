@@ -10,7 +10,7 @@ def index():
     time=request.json['time']
     # period=request.json['period']
     r=studiesy.user(user_question,subject)
-    datbase.chat(r,time)
+    datbase.chat(r,time,subject)
     return({"result":r})
 
 if __name__=="__main__":
