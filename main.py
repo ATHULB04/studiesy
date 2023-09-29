@@ -7,20 +7,10 @@ app=Flask(__name__)
 def index():
     user_question=request.json['question']
     subject=request.json['subject']
-    # date=request.json['date']
+    time=request.json['time']
     # period=request.json['period']
     r=studiesy.user(user_question,subject)
-    print(r)
-    return({"result":r})
-
-@app.route("/summary",methods=['POST'])
-def index1():
-    yes=request.json['yes']
-    subject=request.json['subject']
-    # date=request.json['date']
-    # period=request.json['period']
-    r=datbase.to_summ(yes,subject)
-    print(r)
+    datbase.chat(r,time)
     return({"result":r})
 
 if __name__=="__main__":
