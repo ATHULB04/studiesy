@@ -31,7 +31,7 @@ def chat(res,time,subject):
     if list.exists:  
         db.collection("chatroom").document(subject).collection("chats").document().update(data2)
     else:
-        db.collection("chatroom").document("Alfred").collection("chats").document().set(data2)
+        db.collection("chatroom").document(subject).collection("chats").document().set(data2)
 
 
 
