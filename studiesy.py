@@ -3,7 +3,7 @@ import datbase
 from langchain.schema import HumanMessage
 from langchain.chat_models import ChatOpenAI
 os.environ["OPENAI_API_KEY"] = os.environ.get('OPENAI_API_KEY')
-response_cache = {}
+
 
 def user(user_question,subject):
     summary=datbase.importing(subject)
@@ -26,12 +26,8 @@ def user(user_question,subject):
         
         chat_model = ChatOpenAI(temperature=0.1, model='gpt-3.5-turbo', openai_api_key=os.environ.get("OPENAI_API_KEY"), max_tokens=250, stop=["\n"])
         
-        if sprompt in response_cache:
-            return response_cache[sprompt]
-
         output = chat_model([HumanMessage(content=sprompt)])
         response2 = output.content
-        response_cache[sprompt] = response2
         # print(response2)
         return response2
 
@@ -74,12 +70,10 @@ def user(user_question,subject):
         
         chat_model = ChatOpenAI(temperature=0.1, model='gpt-3.5-turbo', openai_api_key=os.environ.get("OPENAI_API_KEY"), max_tokens=250, stop=["\n"])
         
-        if prompt in response_cache:
-            return response_cache[prompt]
+        
 
         output = chat_model([HumanMessage(content=prompt)])
         response = output.content
-        response_cache[prompt] = response
         return response
 
     response = promptmaker(summary, user_question)
