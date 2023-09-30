@@ -74,6 +74,7 @@ def user(user_question,subject):
 
         output = chat_model([HumanMessage(content=prompt)])
         response = output.content
+        print(response)
         return response
 
     response = promptmaker(summary, user_question)
