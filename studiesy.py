@@ -77,6 +77,7 @@ def user(user_question,subject):
         return response
 
     response = promptmaker(summary, user_question)
+    print(response)
 
     return response
 
