@@ -7,11 +7,11 @@ app=Flask(__name__)
 def index():
     user_question=request.json['question']
     subject=request.json['subject']
-    time=request.json['time']
+    # time=request.json['time']
     # period=request.json['period']
     r=studiesy.user(user_question,subject)
     print(r)
-    datbase.chat(r,time,subject)
+    # datbase.chat(r,time,subject)
     return({"result":r})
 
 if __name__=="__main__":
