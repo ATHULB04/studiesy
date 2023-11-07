@@ -10,4 +10,4 @@ Werkzeug==1.0.1
 fpdf==1.7.2
 firebase_admin==6.2.0
 openai==0.27.7
-langchain==0.0.174
+langchain==0.0.17
