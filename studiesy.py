@@ -1,86 +1,67 @@
 import os
-import datbase
 from langchain.schema import HumanMessage
 from langchain.chat_models import ChatOpenAI
+import datbase
+
 os.environ["OPENAI_API_KEY"] = os.environ.get('OPENAI_API_KEY')
 
 
-def user(user_question,subject):
-    summary=datbase.importing(subject)
-    print(summary)
-    def scheckpromptmaker(question):#for double checking g=for summary
-        instructions = """You are a chatbot that returns 0 or 1.1 means yes and 0 means no.
-        you should say 1 if the question is related to the summary or if user asks something related to what teacher taught that day and 0 if not.
-    example of 1: "what did teacher teach today?"
-    example of 1: "tell me about teachers class in short"
+def scheckpromptmaker(question,summary):#for double checking g=for summary
+    instructions = f"""You are teachers assistant. Your duty is to classify students doubt's into the following categories:
+    1.{question} regarding the data from summary :{summary} or about a summary of {summary}
+    0.question not regarding the data from summary :{summary}
+
+    Only return the number of the category in which the statement falls.
+
+    return the number of the category in which the statement falls.
+    excepted output is 1 or 0 only.no other alphabets or characters are allowed.
     """
 
-        data = str(question) 
-        question = '''Is the following question inquiring about the teacher's class or requesting a summary of the class content? Please return '1' if yes, and '0' if no.'''  
-        
-        sprompt = instructions + data + question
+    question = f'''return in the above-mentioned categories which type '{summary}' falls into.only return integer value.'''  
+    
+    sprompt = instructions + question
 
-        return scheckaskgpt(sprompt)
+    return scheckaskgpt(sprompt)
 
-    def scheckaskgpt(sprompt):
-        
-        chat_model = ChatOpenAI(temperature=0.1, model='gpt-3.5-turbo', openai_api_key=os.environ.get("OPENAI_API_KEY"), max_tokens=250, stop=["\n"])
-        
-        output = chat_model([HumanMessage(content=sprompt)])
-        response2 = output.content
-        # print(response2)
-        return response2
+def scheckaskgpt(sprompt):
+    
+    chat_model = ChatOpenAI(temperature=0.0, model='gpt-4', openai_api_key=os.environ.get("OPENAI_API_KEY"), max_tokens=250, stop=["\n"])
+    
+    output = chat_model([HumanMessage(content=sprompt)])
+    response2 = output.content
+    # print(response2)
+    return response2
 
 
-    def promptmaker(summary, question):
-        instructions = """You are a chatbot who helps students learn.
-        The summary of the topic that teacher taught that day is '{summary}'.
-        You should help them answer all their questions with data mentioned in the '{summary}'.
-        And  only answer the questions related to topics mentioned in  '{summary}'.
-        If students ask anything outside the topic, you should say 'Sorry, I only know what the teacher taught.Do you have any other doubt related to the topic what teacher taught'.
-        Don't ever mislead students with wrong answers or anything other than the {summary}.
-        ask a creative question at the end of the answer to make students think more about the topic.
-        Make sure you give an answer to the question in a way that students can understand easily.
-        Don't give too long answers and go too deep into the answer.
-        Don't forget to give a 'do you know' type question that invokes curiosity in students.
-        if question is a casual talk like 'how are you' or 'what is your name' you should say 'I am fine' or 'my name is Studiesy-Your learnBuddy,You can ask me anything related to what teacher taught.' respectively.
-        if question id hi or hello you should say 'Hello Buddy,'I am Studiesy-Your learnBuddy,You can ask me anything related to what teacher taught.''.
-        Expected output example:
-                        Photosynthesis is a process by which plants make their own food using sunlight, carbon dioxide and water. This process is an endothermic reaction and takes place in the chloroplasts of green plants. In this process, light energy is absorbed by chlorophyll and converted into chemical energy. This chemical energy is used to make glucose from carbon dioxide and water. Oxygen is also released as a by-product.
-                        By the way, do you know about when it will take place?
-            this is  only an example don't take this as a data for your answer.
-    """
+def promptmaker(summary, question):
+    instructions = f"""You are teachers assistant. Your duty is to answer students doubts only based on the data from the summary:{summary}.
+                    answer the question only based on {summary}."""
+    question=f"answer the {question} using summary {summary}. "  # Convert question to a string
+    prompt = instructions + question
+    return askgpt(prompt)
 
-        data = str(summary)  # Convert summary to a string
-        question = str(question)  # Convert question to a string
-        
-        # Check if the student asked about the topic taught that day
-        if scheckpromptmaker(question) == "1":
-            # print("The question is related to the summary")
-            instruction=str(instructions)+" Always start with 'today teacher taught about'"
-            prompt = instruction + data + "what is it about in short ?"
-
-        else:
-            # Use the default prompt for other questions
-            prompt = instructions + data + question
-
-        return askgpt(prompt)
-
-    def askgpt(prompt):
-        
-        chat_model = ChatOpenAI(temperature=0.1, model='gpt-3.5-turbo', openai_api_key=os.environ.get("OPENAI_API_KEY"), max_tokens=250, stop=["\n"])
-        
-        
-
-        output = chat_model([HumanMessage(content=prompt)])
-        response = output.content
-        print(response)
-        return response
-
-    response = promptmaker(summary, user_question)
+def askgpt(prompt):
+    
+    chat_model = ChatOpenAI(temperature=0.0, model='gpt-4', openai_api_key=os.environ.get("OPENAI_API_KEY"), max_tokens=250, stop=["\n"])
+    output = chat_model([HumanMessage(content=prompt)])
+    response = output.content
     print(response)
-
     return response
 
+    # response = promptmaker(summary, user_question)
+    # print(response)
 
+    # return response
+def final(user_question,subject):
+    summary=datbase.importing(subject)
+    print(summary)
+    ch=scheckpromptmaker(user_question,summary)
+    print(ch)
+    if ch=='1':
+        response = promptmaker(summary, user_question)
+        return response
+    else:
+        return "I am not able to answer this question as teacher did not teach this in the class."
+    
+# print(final("what is apple", "python"))
 
